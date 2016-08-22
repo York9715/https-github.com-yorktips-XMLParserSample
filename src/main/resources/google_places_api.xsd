@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ 
+  <xs:element name="placeSearchResponse" type="placeSearchResponse"/>
+
+   <xs:complexType name="location">
+    <xs:sequence>
+      <xs:element name="lat" type="xs:double" minOccurs="0"/>
+      <xs:element name="lng" type="xs:double" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+   <xs:complexType name="viewport">
+    <xs:sequence>
+      <xs:element name="southwest" type="location" minOccurs="0"/>
+      <xs:element name="northeast" type="location" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+   <xs:complexType name="geometry">
+    <xs:sequence>
+      <xs:element name="location" type="location" minOccurs="0"/>
+      <xs:element name="viewport" type="viewport" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+   
+   <xs:complexType name="photo">
+    <xs:sequence>
+      <xs:element name="photo_reference" type="xs:string" minOccurs="0"/>
+      <xs:element name="width" type="xs:int" minOccurs="0"/>
+      <xs:element name="height" type="xs:int" minOccurs="0"/>
+      <xs:element name="html_attribution" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="result">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="vicinity" type="xs:string" minOccurs="0"/>
+      <xs:element name="type" type="xs:string" maxOccurs="unbounded" minOccurs="0"  />
+      <xs:element name="geometry" type="geometry" minOccurs="0"  />
+      <xs:element name="icon" type="xs:string" minOccurs="0"/>
+      <xs:element name="reference" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="photo" type="photo" minOccurs="0"  />
+      <xs:element name="place_id" type="xs:string" minOccurs="0"/>
+      <xs:element name="scope" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="idx" type="xs:int" use="required"/>
+  </xs:complexType>
+   
+  <xs:complexType name="placeSearchResponse">
+    <xs:sequence>
+      <xs:element name="status" type="xs:string" minOccurs="0"/>
+      <xs:element name="next_page_token" type="xs:string" minOccurs="0"/>
+      <xs:element name="result" type="result" maxOccurs="unbounded" minOccurs="0"  />
+    </xs:sequence>
+  </xs:complexType>
+  
+
+</xs:schema>
