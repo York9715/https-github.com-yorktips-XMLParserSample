@@ -6,4 +6,4 @@
    use "google_places_api.xsd" to create Data classes:
         "new" -> "JAXB" -> "JAXB classes from schema" 
          will create all com.york.api.data 
-    
+     
