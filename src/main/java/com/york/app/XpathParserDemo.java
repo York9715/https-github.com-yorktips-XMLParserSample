@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.york.api.utils.*;
+import com.york.api.data.*;
 
 public class XpathParserDemo {
 	public static void main(String[] args) {
@@ -47,7 +47,7 @@ public class XpathParserDemo {
 
 			// 2. results
 			xpath = "/PlaceSearchResponse/result";
-			List<Place> retults = new ArrayList<Place>();
+			List<Result> retults = new ArrayList<Result>();
 
 			NodeList nodeList = (NodeList) xPath.compile(xpath).evaluate(doc,XPathConstants.NODESET);
 			for (int idx = 0; idx < nodeList.getLength(); idx++) {
@@ -55,7 +55,7 @@ public class XpathParserDemo {
 				Node wkNode = nodeList.item(idx);
 				
 				if (wkNode.getNodeType() == Node.ELEMENT_NODE) {
-					Place place = new Place();
+					Result place = new Result();
 	
 					// 2.1. name
 					xpath = "/PlaceSearchResponse/result[" + (idx + 1) + "]/name";
@@ -136,14 +136,14 @@ public class XpathParserDemo {
 					retults.add(place);
 				}
 			}
-			placeSearchResponse.setRetults(retults);
+			placeSearchResponse.setResult(retults);
 
 			// 3. next_page_token
 			xpath = "/PlaceSearchResponse/next_page_token";
 			node = (Node) xPath.compile(xpath).evaluate(doc,
 					XPathConstants.NODE);
 			if (node != null)
-				placeSearchResponse.setNext_page_token(node.getTextContent());
+				placeSearchResponse.setNextPageToken(node.getTextContent());
 
 			System.out.println(retults.size());
 

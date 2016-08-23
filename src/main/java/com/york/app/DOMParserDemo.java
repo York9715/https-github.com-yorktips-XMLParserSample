@@ -11,14 +11,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import com.york.api.utils.*;
+import com.york.api.data.*;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -90,7 +87,7 @@ public class DOMParserDemo {
 	    
 	    //Iterating through the nodes and extracting the data.
 	    NodeList nodeList = document.getDocumentElement().getChildNodes();
-	    List<Place> results= new ArrayList<Place>();
+	    List<Result> results= new ArrayList<Result>();
 	    for (int i = 0; i < nodeList.getLength(); i++) {
 	    	
 	      //We have encountered an <employee> tag.
@@ -106,11 +103,11 @@ public class DOMParserDemo {
 	    	  }
 	    	  
 	    	  if (name.equalsIgnoreCase("next_page_token")) 
-	    		  placeSearchResponse.setNext_page_token(node.getLastChild().getTextContent().trim());
+	    		  placeSearchResponse.setNextPageToken(node.getLastChild().getTextContent().trim());
 	    	  node.getLastChild().getTextContent().trim();
 	    	  
 	    	  if (name.equalsIgnoreCase("result")) {
-	    		  Place place= new Place();
+	    		  Result place= new Result();
 	    	  
 	    		  NodeList nodeList2 = node.getChildNodes();
 	    		  for (int i2 = 0; i2 < nodeList2.getLength(); i2++) {
@@ -160,16 +157,18 @@ public class DOMParserDemo {
 	    				  if (name2.equalsIgnoreCase("id")) place.setId(node2.getLastChild().getTextContent().trim());
 	    				  //if (name2.equalsIgnoreCase("opening_hours")) place.setOpeningHours(node2.getLastChild().getTextContent().trim());
 	    				  if (name2.equalsIgnoreCase("photo")) place.setId(node2.getLastChild().getTextContent().trim());
-	    				  if (name2.equalsIgnoreCase("place_id")) place.setPlace_id(node2.getLastChild().getTextContent().trim());
-	    				  if (name2.equalsIgnoreCase("scope")) place.setPlace_id(node2.getLastChild().getTextContent().trim());
+	    				  if (name2.equalsIgnoreCase("place_id")) place.setPlaceId(node2.getLastChild().getTextContent().trim());
+	    				  if (name2.equalsIgnoreCase("scope")) place.setScope(node2.getLastChild().getTextContent().trim());
 	    				  
 	    			  }
 	    		  }
 	    		  results.add(place);
 	    	  }
 	      } 	 
-	    }	    
-	    placeSearchResponse.setRetults(results);
+	    }
+	    
+	    placeSearchResponse.setResult(results);
+	    System.out.println(results);
 	    System.out.println("end");
 	  }
 	 
